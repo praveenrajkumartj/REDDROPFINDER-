@@ -1,0 +1,139 @@
+
+/* 
+   REDDROPFINDER - Cinematic Opening Animation 
+   Description: Medical Paper Tear Transition
+*/
+
+:root {
+    --paper-white: #ffffff;
+    --medical-texture: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+    --blood-red-glow: rgba(230, 57, 70, 0.4);
+}
+
+#opening-animation-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    overflow: hidden;
+    pointer-events: none;
+    perspective: 1500px; /* Enhanced 3D effect */
+}
+
+.paper-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    pointer-events: all;
+    background: transparent;
+}
+
+.tear-panel {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background-image: url("../images/blood_shortage_emergency_hero_1773394590596.png");
+    background-size: 200% 100%; /* To cover both halves with one image */
+    background-repeat: no-repeat;
+    transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    backface-visibility: hidden;
+}
+
+/* Dark overlay to ensure text readability */
+.tear-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Subtle dark tint */
+    z-index: 3;
+}
+
+.tear-panel-left {
+    background-position: left center;
+    transform-origin: left center;
+    clip-path: polygon(0% 0%, 100% 0%, 98% 5%, 100% 10%, 97% 15%, 100% 20%, 98% 25%, 100% 30%, 97% 35%, 100% 40%, 98% 45%, 100% 50%, 97% 55%, 100% 60%, 98% 65%, 100% 70%, 97% 75%, 100% 80%, 98% 85%, 100% 90%, 97% 95%, 100% 100%, 0% 100%);
+}
+
+.tear-panel-right {
+    background-position: right center;
+    transform-origin: right center;
+    clip-path: polygon(2% 5%, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 3% 95%, 0% 90%, 2% 85%, 0% 80%, 3% 75%, 0% 70%, 2% 65%, 0% 60%, 3% 55%, 0% 50%, 2% 45%, 0% 40%, 3% 35%, 0% 30%, 2% 25%, 0% 20%, 3% 15%, 0% 10%);
+}
+
+/* Glow leak removal - content below was removed */
+
+/* Content centered on the paper */
+.opening-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.opening-logo-icon {
+    font-size: 3rem;
+    color: #ffffff; /* Contrast against dark image */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.opening-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #ffffff; /* White text for dark image */
+    letter-spacing: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.opening-tagline {
+    font-size: 1.2rem;
+    color: #f1f5f9;
+    font-weight: 500;
+    letter-spacing: 4px;
+    opacity: 0.9;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(230, 57, 70, 0.4)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 30px rgba(230, 57, 70, 0.8)); }
+}
+
+/* State: Animation Triggered */
+#opening-animation-wrap.active .tear-panel-left {
+    transform: translateX(-100%) rotateY(-15deg) skewY(2deg);
+}
+
+#opening-animation-wrap.active .tear-panel-right {
+    transform: translateX(100%) rotateY(15deg) skewY(-2deg);
+}
+
+#opening-animation-wrap.active .opening-content {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+}
+
+/* Glow reference removed */
+
+/* Utility to completely remove it from blocking */
+#opening-animation-wrap.finished {
+    display: none;
+}
